@@ -4,14 +4,14 @@ Linux Pluggable Authentication Modules (PAM) provide dynamic authentication supp
 
 Linux-PAM separates the tasks of authentication into four independent management groups:
 
-- account modules check that the specified account is a valid authentication target under current conditions. This may include conditions like account expiration, time of day, and that the user has access to the requested service.
+- **account** modules check that the specified account is a valid authentication target under current conditions. This may include conditions like account expiration, time of day, and that the user has access to the requested service.
 
-- authentication modules verify the user's identity, for example by requesting and checking a password or other secret. They may also pass authentication information on to other systems like a keyring.
+- **authentication** modules verify the user's identity, for example by requesting and checking a password or other secret. They may also pass authentication information on to other systems like a keyring.
 
-- password modules are responsible for updating passwords, and are generally coupled to modules 
+- **password** modules are responsible for updating passwords, and are generally coupled to modules 
 employed in the authentication step. They may also be used to enforce strong passwords.
 
-- session modules define actions that are performed at the beginning and end of sessions. A session 
+- **session** modules define actions that are performed at the beginning and end of sessions. A session 
 starts after the user has successfully authenticated.
 
 #### further readings
@@ -19,9 +19,8 @@ starts after the user has successfully authenticated.
 - [The Linux-PAM System Administrators' Guide](http://linux-pam.org/Linux-PAM-html/Linux-PAM_SAG.html)
 - [How PAM works](http://www.tuxradar.com/content/how-pam-works)
 
-## 
-
-- Show All Members of a Group
+### Linux Admin
+#### Show All Members of a Group
 > The `/etc/group` file is a text file that defines the groups on the Linux and Unix based systems. You can simply query this file to find and list all members of a group.
  
  + list all members in group-name: `members group-name`
