@@ -1,10 +1,25 @@
 
+### delete a user
+[Linux: Delete / Remove User Account](http://www.cyberciti.biz/faq/linux-remove-user-command/)
+`userdel username`
+`userdel [options] username`
+`userdel -r username`
+
+### disable a user
+`passwd -l vivek`
+
+### umask
+In computing, umask is a command that determines the settings of a mask that controls how file permissions are set for newly created files. It also may refer to a function that sets the mask, or it may refer to the mask itself, which is formally known as the file mode creation mask. The mask is a grouping of bits, each of which restricts how its corresponding permission is set for newly created files. The bits in the mask may be changed by invoking the umask command.
+
+In UNIX, each file has a set of attributes which control who can read, write or execute it. When a program creates a file, UNIX requires that the file permissions be set to an initial setting. The mask restricts permission settings. If the mask has a bit set to "1", it means the corresponding initial file permission will be disabled. A bit set to "0" in the mask means that the corresponding permission will be determined by the program and the system. In other words, the mask acts as a last-stage filter that strips away permissions as a file is created; each bit that is set to a "1" strips away its corresponding permission. Permissions may be changed later by users and programs using chmod.
+
+
 ### PAM - Linux Pluggable Authentication Module 
 Linux Pluggable Authentication Modules (PAM) provide dynamic authentication support for applications and services in a Linux. 
 
 Linux-PAM separates the tasks of authentication into four independent management groups:
 
-- account modules check that the specified account is a valid authentication target under current conditions. This may include conditions like account expiration, time of day, and that the user has access to the requested service.
+- account modules check that the specified account is a valid authentication target under current conditions. Thisdelete may include conditions like account expiration, time of day, and that the user has access to the requested service.
 
 - authentication modules verify the user's identity, for example by requesting and checking a password or other secret. They may also pass authentication information on to other systems like a keyring.
 
@@ -13,6 +28,43 @@ employed in the authentication step. They may also be used to enforce strong pas
 
 - session modules define actions that are performed at the beginning and end of sessions. A session 
 starts after the user has successfully authenticated.
+
+#### PAM configuration files 
+[PAM Configuration Files](https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Managing_Smart_Cards/PAM_Configuration_Files.html)
+
+Each PAM-aware application or service has a file in the /etc/pam.d/ directory. Each file in this directory has the same name as the service to which it controls access.
+
+** PAM Configuration File Format**
+`module_interface     control_flag     module_name module_arguments`
+
+** PAM module interfaces **
+- auth — This module interface authenticates use. For example, it requests and verifies the validity of a password. Modules with this interface can also set credentials, such as group memberships or Kerberos tickets.
+
+- account — This module interface verifies that access is allowed. For example, it checks if a user account has expired or if a user is allowed to log in at a particular time of day.
+
+- password — This module interface is used for changing user passwords.
+
+- session — This module interface configures and manages user sessions. Modules with this interface can also perform additional tasks that are needed to allow access, like mounting a user's home directory and making the user's mailbox available.
+
+* Note: An individual module can provide any or all module interfaces. For instance, pam_unix.so provides all four module interfaces. *
+
+** AM Control Flags
+All PAM modules generate a success or failure result when called. Control flags tell PAM what do with the result. Modules can be stacked in a particular order, and the control flags determine how important the success or failure of a particular module is to the overall goal of authenticating the user to the service.
+
+- required — The module result must be successful for authentication to continue. If the test fails at this point, the user is not notified until the results of all module tests that reference that interface are complete.
+
+- requisite — The module result must be successful for authentication to continue. However, if a test fails at this point, the user is notified immediately with a message reflecting the first failed required or requisite module test.
+
+- sufficient — The module result is ignored if it fails. However, if the result of a module flagged sufficient is successful and no previous modules flagged required have failed, then no other results are required and the user is authenticated to the service.
+
+- optional — The module result is ignored. A module flagged as optional only becomes necessary for 
+successful authentication when no other modules reference the interface.
+
+- include — Unlike the other controls, this does not relate to how the module result is handled. This flag pulls in all lines in the configuration file which match the given parameter and appends them as an argument to the module.
+
+Note： The order in which required modules are called is not critical. Only the sufficient and requisite control flags cause order to become important.
+
+
 
 #### further readings
 - [How PAM Works: The Basics](http://www.informit.com/articles/article.aspx?p=20968&seqNum=3)

@@ -1,43 +1,32 @@
-参考： [http://www.cnblogs.com/JemBai/archive/2009/02/05/1384413.html](http://www.cnblogs.com/JemBai/archive/2009/02/05/1384413.html)
+### 参考
+- [vsftp虚拟用户配置](http://www.cnblogs.com/cnsanshao/p/3539047.html)
+- [vsftpd Configuration Options](https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/3/html/Reference_Guide/s1-ftp-vsftpd-conf.html)
+- [http://www.cnblogs.com/JemBai/archive/2009/02/05/1384413.html](http://www.cnblogs.com/JemBai/archive/2009/02/05/1384413.html)
+
+## 创建每个虚拟用户自己的配置文件
+配置文件的路径是/etc/vsftpd/vsftpd.conf中的
+user_config_dir=/etc/vsftpd/vuser_conf路径
+
+在 /etc/vsftpd/vuser_conf/下面创建以用户名为名称的文件
+内容如下
+
+    local_root=/var/www(虚拟用户的根目录根据实际修改)
+    write_enable=YES （可写）
+    download_enable=YES
+    anon_world_readable_only=NO
+    anon_upload_enable=YES
+    anon_mkdir_write_enable=YES
+    anon_other_write_enable=YES
+    local_umask=022
+
 
 ## 配置文件：
-- /etc/vsftpd/vsftpd.conf   //主配置文件
-- /etc/vsftpd.conf   //主配置文件
+- /etc/vsftpd.conf          //主配置文件
 - /etc/vsftpd.ftpusers      //被禁止登录FTP的用户文件
 - /etc/vsftpd.user_list     //允许登录FTP的用户文件
 
-## 访问方式
-- 匿名登录
-- 账号登录
-
-## 启动FTP服务器
-`service vsftpd restart`
-
-## 配置vsftp服务器
-`vi /etc/vsftpd/vsftpd.conf`
-
-<1>第7行： 控制匿名登录
-            anonymous_enable=YES 改成NO
-<2>第10行：允许本地帐号登录
-<3>第13行：控制可写权限
-<4>第17行：控制本地文件的权限掩码
-<5>第22行：控制是否允许匿名上传(与26行同时开启或关闭)
-<6>第26行：控制是否允许匿名写及创建目录的权限
-<7>第33行：控制上传或下载的日志记录
-<8>第46行：控制日志的保存路径
-<9>第52行：设置指令超时的时间，默认为600秒
-<10>第55行：设置数据连接的超时时间，默认为120秒
-<11>第91行：控制登录FTP的用户是否被限制在家目录下;(必须与93行同时开启或关闭)
-            chroot_list_enable=YES
-<12>第93行：登录FTP后被限制在家目录下的用户列表文件
-            chroot_list_file=/etc/vsftpd.chroot_list
-            在/etc目录下新建一个vsftpd.chroot_list文件，内容加入要限制用户的用户名
-            没加入限制用户可以访问其目录
-<13>第99行：控制登录FTP后是否允许ls命令
-<14>第102行:启用/etc/vsftpd.user_list文件
-
 [https://help.ubuntu.com/community/vsftpd](https://help.ubuntu.com/community/vsftpd)
-### Virtual users with TLS/SSL/FTPS and a common upload directory - Complicated VSFTPD
+## Virtual users with TLS/SSL/FTPS and a common upload directory - Complicated VSFTPD
 Virtual users are users that do not exist on the system - they are not in /etc/passwd, do not have a home directory on the system, can not login but in vsftpd - or if they do exist, they can login in vsftpd with a non system password - security. 
 
 You can set different definitions to each virtual user, granting to each of these users different permissions. If TLS/SSL/FTPS and virtual users are enabled, the level of security of your vsftpd server is increased: encrypted passwords, with passwords that are not used on the system, and users that can't access directly to their home directory (if you want). 
@@ -109,26 +98,5 @@ Create The Location Of The Files
 You need to set up the location of the files / dirs for the virtual users. Type the following command: # mkdir /home/vftp
 # mkdir -p /home/vftp/{vivek,sayali}
 # chown -R ftp:ftp /home/vftp
-
-
-Restart The FTP Server
-Type the following command:
-# service vsftpd restart
-
-Test Your Setup
-Open another shell session and type: 
-$ ftp localhost
-
-Sample success output:
-Connected to ftp.nixcraft.net.in.
-Name (localhost:root): vivek
-331 Please specify the password.[user now types in vivekpass]
-Password:
-230 Login successful.
-Remote system type is UNIX.
-Using binary mode to transfer files.
-ftp> 
-
-
 
 

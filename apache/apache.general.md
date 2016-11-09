@@ -1,22 +1,4 @@
 
-### PAM - Linux Pluggable Authentication Module 
-Linux Pluggable Authentication Modules (PAM) provide dynamic authentication support for applications and services in a Linux. 
-
-Linux-PAM separates the tasks of authentication into four independent management groups:
-
-- account modules check that the specified account is a valid authentication target under current conditions. This may include conditions like account expiration, time of day, and that the user has access to the requested service.
-
-- authentication modules verify the user's identity, for example by requesting and checking a password or other secret. They may also pass authentication information on to other systems like a keyring.
-
-- password modules are responsible for updating passwords, and are generally coupled to modules 
-employed in the authentication step. They may also be used to enforce strong passwords.
-
-- session modules define actions that are performed at the beginning and end of sessions. A session 
-starts after the user has successfully authenticated.
-
-
-
-
 ### check whether Apache is installed 
 `dpkg --get-selections | grep apache`
 
