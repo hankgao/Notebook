@@ -1,4 +1,117 @@
 
+## debug using liteIDE
+[Debugging Go using LiteIDE on Ubuntu 14.04](https://www.leaseweb.com/labs/2014/06/debugging-golang-using-liteide-on-ubuntu-14-04/?utm_source=leaseweblabs.com&utm_medium=referral&utm_campaign=redirect)
+
+### solve the "please check gdb is codesigned" issue
+[refer to](http://stackoverflow.com/questions/18423124/please-check-gdb-is-codesigned-see-taskgated8-how-to-get-gdb-installed-w)
+
+#### codesign gdb
+This error occurs because OSX implements a pid access policy which requires a digital signature for binaries to access other processes pids. To enable gdb access to other processes, we must first code sign the binary. This signature depends on a particular certificate, which the user must create and register with the system.
+
+To create a code signing certificate, open the Keychain Access application. Choose menu Keychain Access -> Certificate Assistant -> Create a Certificate…
+
+Choose a name for the certificate (e.g., gdb-cert), set Identity Type to Self Signed Root, set Certificate Type to Code Signing and select the Let me override defaults. Click several times on Continue until you get to the Specify a Location For The Certificate screen, then set Keychain to System.
+
+Double click on the certificate, open Trust section, and set Code Signing to Always Trust. Exit Keychain Access application.
+
+Restart the taskgated service, and sign the binary.
+
+$ sudo killall taskgated
+$ codesign -fs gdb-cert "$(which gdb)"
+
+
+
+## pull requests
+reference: [Making a Pull Request](https://www.atlassian.com/git/tutorials/making-a-pull-request)
+
+Pull requests are a feature that makes it easier for developers to collaborate using Bitbucket. They provide a user-friendly web interface for discussing proposed changes before integrating them into the official project.
+
+In their simplest form, pull requests are a mechanism for a developer to notify team members that they have completed a feature. Once their feature branch is ready, the developer files a pull request via their Bitbucket account. This lets everybody involved know that they need to review the code and merge it into the master branch.
+
+But, the pull request is more than just a notification—it’s a dedicated forum for discussing the proposed feature. If there are any problems with the changes, teammates can post feedback in the pull request and even tweak the feature by pushing follow-up commits. All of this activity is tracked directly inside of the pull request.
+
+## Unnamed
+
+List all files that have been changed in a commit
+- `$ git diff-tree --no-commit-id --name-only -r bd61ad98 `
+- `git show --pretty="" --name-only bd61ad98 `
+    The --no-commit-id suppresses the commit ID output.
+    The --pretty argument specifies an empty format string to avoid the cruft at the beginning.
+    The --name-only argument shows only the file names that were affected (Thanks Hank).
+    The -r argument is to recurse into sub-trees
+
+List all fiels in a commit
+- `git ls-tree --name-only -r <commit-ish>`
+
+### list a specific person's commits 
+
+This works for both git log and gitk - the 2 most common ways of viewing history. You don't need to use the whole name.
+
+`git log --author="Jon"` will match a commit made by "Jonathan Smith"
+`git log --author=Jon` and `git log --author=Smith`  would also work. The quotes are optional if you don't need any spaces.
+
+Add --all if you intend to search all branches and not just the current commit's ancestors in your repo.
+
+You can also easily match on multiple authors as regex is the underlying mechanism for this filter. So to list commits by Jonathan or Adam, you can do this:
+
+`git log --author="\(Adam\)\|\(Jon\)"`
+In order to exclude commits by a particular author or set of authors using regular expressions as noted in this question, you can use a negative lookahead in combination with the --perl-regexp switch:
+
+`git log --author='^(?!Adam|Jon).*$' --perl-regexp`
+Alternatively, you can exclude commits authored by Adam by using bash and piping:
+
+`git log --format='%H %an' | 
+  grep -v Adam | 
+  cut -d ' ' -f1 | 
+  xargs -n1 git log -1`
+If you want to exclude commits commited (but not necessarily authored) by Adam, replace %an with %cn. More details about this are in my blog post here: http://dymitruk.com/blog/2012/07/18/filtering-by-author-name/
+
+## Git submodule
+
+[Git Tools - Submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules)
+
+### add submodules to your project
+Submodules allow you to keep a Git repository as a subdirectory of another Git repository. This lets you clone another repository into your project and keep your commits separate.
+
+To add a new submodule you use the git submodule add command with the absolute or relative URL of the project you would like to start tracking. 
+
+    $ git submodule add https://github.com/chaconinc/DbConnector
+    Cloning into 'DbConnector'...
+    remote: Counting objects: 11, done.
+    remote: Compressing objects: 100% (10/10), done.
+    remote: Total 11 (delta 0), reused 11 (delta 0)
+    Unpacking objects: 100% (11/11), done.
+    Checking connectivity... done.
+
+By default, submodules will add the subproject into a directory named the same as the repository, in this case “DbConnector”. You can add a different path at the end of the command if you want it to go elsewhere.
+
+.gitmodules file is the configuration file that stores the mapping between the project’s URL and the local subdirectory you’ve pulled it into:
+
+    [submodule "DbConnector"]
+      path = DbConnector
+      url = https://github.com/chaconinc/DbConnector
+
+If you have multiple submodules, you’ll have multiple entries in this file. It’s important to note that this file is version-controlled with your other files, like your .gitignore file. It’s pushed and pulled with the rest of your project. This is how other people who clone this project know where to get the submodule projects from.
+
+Although DbConnector is a subdirectory in your working directory, Git sees it as a submodule and doesn’t track its contents when you’re not in that directory. Instead, Git sees it as a particular commit from that repository.
+
+### Cloning a Project with Submodules
+Here we’ll clone a project with a submodule in it. When you clone such a project, by default you get the directories that contain submodules, but none of the files within them yet:
+
+You must run two commands: `git submodule init` to initialize your local configuration file, and `git submodule update` to fetch all the data from that project and check out the appropriate commit listed in your superproject:
+
+
+There is another way to do this which is a little simpler, however. If you pass --recursive to the git clone command, it will automatically initialize and update each submodule in the repository.
+
+### Working on a Project with Submodules
+If you want to check for new work in a submodule, you can go into the directory and run git fetch and git merge the upstream branch to update the local code.
+
+There is an easier way to do this as well, if you prefer to not manually fetch and merge in the subdirectory. If you run git submodule update --remote, Git will go into your submodules and fetch and update for you.
+
+This command will by default assume that you want to update the checkout to the master branch of the submodule repository. You can, however, set this to something different if you want. For example, if you want to have the DbConnector submodule track that repository’s “stable” branch, you can set it in either your .gitmodules file (so everyone else also tracks it), or just in your local .git/config file. Let’s set it in the .gitmodules file:
+
+
+
 ## git configuration
 - there are three configuraiton files 
   + one under each repository: .git/config

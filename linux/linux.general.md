@@ -1,4 +1,33 @@
 
+### daemon
+In multitasking computer operating systems, a daemon (/ˈdiːmən/ or /ˈdeɪmən/)[1] is a computer program that runs as a background process, rather than being under the direct control of an interactive user. Traditionally, the process names of a daemon end with the letter d, for clarification that the process is, in fact, a daemon, and for differentiation between a daemon and a normal computer program. For example, syslogd is the daemon that implements the system logging facility, and sshd is a daemon that serves incoming SSH connections.
+
+In a Unix environment, the parent process of a daemon is often, but not always, the init process. A daemon is usually either created by a process forking a child process and then immediately exiting, thus causing init to adopt the child process, or by the init process directly launching the daemon. 
+
+### linux
+
+#### General overview of the Linux file system
+[General overview of the Linux file system](http://www.tldp.org/LDP/intro-linux/html/sect_03_01.html)
+
+"On a UNIX system, everything is a file; if something is not a file, it is a process."
+
+##### sorts of files
+- *Directories*: files that are lists of other files.- 
+
+- *Special files*: the mechanism used for input and output. Most special files are in /dev, we will discuss them later.- 
+
+- *Links*: a system to make a file or directory visible in multiple parts of the system's file tree. We will talk about links in detail.- 
+
+- *(Domain) sockets*: a special file type, similar to TCP/IP sockets, providing inter-process networking protected by the file system's access control.- 
+
+- *Named pipes*: act more or less like sockets and form a way for processes to communicate with each other, without using network socket semantics.
+
+Every partition has its own file system. By imagining all those file systems together, we can form an idea of the tree-structure of the entire system, but it is not as simple as that. In a file system, a file is represented by an inode, a kind of serial number containing information about the actual data that makes up the file: to whom this file belongs, and where is it located on the hard disk.
+
+Every partition has its own set of inodes; throughout a system with multiple partitions, files with the same inode number can exist.
+
+Each inode describes a data structure on the hard disk, storing the properties of a file, including the physical location of the file data. When a hard disk is initialized to accept data storage, usually during the initial system installation process or when adding extra disks to an existing system, a fixed number of inodes per partition is created. This number will be the maximum amount of files, of all types (including directories, special files, links etc.) that can exist at the same time on the partition. We typically count on having 1 inode per 2 to 8 kilobytes of storage.
+
 ### delete a user
 [Linux: Delete / Remove User Account](http://www.cyberciti.biz/faq/linux-remove-user-command/)
 `userdel username`
@@ -144,6 +173,11 @@ options:
 --reference=filename 
 -v --verbose
 --version
+
+### List All Environment Variables Command
+- `printenv` command – Print all or part of environment.
+- `env` command – Print all exported environment or run a program in a modified environment.
+- `set` command – Print the name and value of each shell variable.
 
 ## init.d and init
 [http://askubuntu.com/questions/5039/what-is-the-difference-between-etc-init-and-etc-init-d](http://askubuntu.com/questions/5039/what-is-the-difference-between-etc-init-and-etc-init-d)

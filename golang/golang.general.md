@@ -1,3 +1,57 @@
+
+## Important links
+- [Golang中国](http://golangtc.com/)
+- [Go by example](https://gobyexample.com/)
+- [Go wiki](https://github.com/golang/go/wiki)
+- [The Go forum](https://forum.golangbridge.org/)
+
+### Go tools
+[Golang code inspection tools](http://blog.ralch.com/tutorial/golang-tools-inspection/)
+godegraph uses [Graphviz](http://graphviz.org/)
+[Golang code comprehension tools](http://blog.ralch.com/tutorial/golang-tools-comprehension/)
+
+- [godegraph - A tool for generating dependency graphs of Go code.](https://github.com/kisielk/godepgraph)
+
+install godegrpah
+`go get github.com/kisielk/godepgraph`
+
+use godegraph
+// this command will generate dependency graph as svg image
+// -s ingores the builtin packages
+// -horizontal layout the graphics horizontally
+$ godepgraph -s -horizontal github.com/codegangsta/gin | dot -Tsvg -o gin-godepgraph.svg
+
+- oracle 
+The oralce is a source analysis tool that answers question about your Go source code. 
+
+install oracle:
+`go get golang.org/x/tools/cmd/oracle`
+
+- Pythia
+Pythia is a browser based user interface for oracle. Pythia is a browser based user interface for oracle. It is based on the following packages: oracle and godoc
+
+install pythia 
+`go get github.com/fzipp/pythia`
+
+use pythia 
+A specific package can be opened with the following command:
+`pythia net/http`
+
+## go cross compiler: gox
+
+### install gox
+` go get github.com/mitchellh/gox`
+
+## interactive debuging 
+[Does any golang interactive debugger exist?](http://stackoverflow.com/questions/16492509/does-any-golang-interactive-debugger-exist)
+
+### godebug
+[godebug Github repository](https://github.com/mailgun/godebug)
+
+#### Installation:
+
+`$ go get github.com/mailgun/godebug`
+
 ## install golang
 
 ### Ubuntu 
