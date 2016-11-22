@@ -37,6 +37,42 @@ use pythia
 A specific package can be opened with the following command:
 `pythia net/http`
 
+- go vet
+Vet does analysis on Go source code and reports suspicious constructs. It uses heuristics that do not guarantee all reports are genuine problems. Vet can find errors not caught by the compilers.
+
+It can be invoked in three different ways:
+
+	// for go package
+	$ go tool vet package/path/name
+	// for files
+	$ go tool vet source/directory/*.go
+	// for directory
+	$ go tool vet source/directory
+
+- golint
+Golint differs from gofmt and govet. It prints out style mistakes. Golint is concerned with coding style. It is in use at Google, and it seeks to match the accepted style of the open source Go project.
+
+Golint make suggestions regarding source code. It is not perfect, and has both false positives and false negatives. Do not consider its output as a truth. It will never be trustworthy enough to be enforced automatically as part of a build process.
+
+Installation
+
+`go get -u github.com/golang/lint/golint`
+
+Usage
+
+	// analysis a particular package
+	$ golint package
+	// analysis a particular directory
+	$ golint directory 
+	// analyses a particualr files
+	$ golint files 
+
+
+
+
+
+
+
 ## go cross compiler: gox
 
 ### install gox
