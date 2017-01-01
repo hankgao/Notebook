@@ -43,7 +43,7 @@ To create a "db4" format file to store usernames (another option here would be a
 
 Next, create the actual database file like this (may require the db_util package to be installed first): 
 
-# db_load -T -t hash -f vusers.txt vsftpd-virtual-user.db 
+# db_load -T -t hash -f vusers.txt vsftpd-virtual-user.db  
 # chmod 600 vsftpd-virtual-user.db # make it not global readable
 # rm vusers.txt
 

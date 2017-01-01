@@ -1,4 +1,16 @@
 
+## download packages on blocked servers
+[Golang中国 下载第三方包](http://golangtc.com/download/package)
+
+
+## IDEs
+### Visual Studio Code (vscode)
+[User and Workspace Settings](https://code.visualstudio.com/docs/customization/userandworkspace)
+[Windows环境下vscode-go安装笔记](http://www.cnblogs.com/zsy/p/5224524.html)
+
+
+
+
 ## Important links
 - [Golang中国](http://golangtc.com/)
 - [Go by example](https://gobyexample.com/)
@@ -68,18 +80,22 @@ Usage
 	$ golint files 
 
 
-
-
-
-
-
 ## go cross compiler: gox
 
 ### install gox
 ` go get github.com/mitchellh/gox`
 
 ## interactive debuging 
+- [delve](#delve)
+- [godebug](#godebug)
+- [MS Visual Studio Code](#Visual Studio Code)
+
+
 [Does any golang interactive debugger exist?](http://stackoverflow.com/questions/16492509/does-any-golang-interactive-debugger-exist)
+
+### delve
+
+### Visual Studio Code
 
 ### godebug
 [godebug Github repository](https://github.com/mailgun/godebug)

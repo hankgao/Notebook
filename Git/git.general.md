@@ -1,3 +1,6 @@
+## git tag
+[git tag介绍](http://xxw8393.blog.163.com/blog/static/37256834201010301043564/)
+[Git Basics - Tagging](https://git-scm.com/book/en/v2/Git-Basics-Tagging)
 
 ## debug using liteIDE
 [Debugging Go using LiteIDE on Ubuntu 14.04](https://www.leaseweb.com/labs/2014/06/debugging-golang-using-liteide-on-ubuntu-14-04/?utm_source=leaseweblabs.com&utm_medium=referral&utm_campaign=redirect)

@@ -146,26 +146,26 @@ To save a key/value pair to a bucket, use the Bucket.Put() function:
 	})
 
 ## Cipher
-PubKey
-SecKey
-AddressFromPubKey
-BitcoinAddressFromPubKey
-BitcoinWalletImportFormatFromSeckey
-SumSHA256
-GenerateDeterministicKeyPairs
-PubKeyFromSecKey
-Sig
-Address
-PubKey
-SecKey
-SigFromHex
-DecodeBase58Address
-PubKeyFromHex
-SecKeyFromHex
-MustSHA256FromHex
-MustDecodeBase58Address
-MustSecKeyFromHex
-MustDecodeBase58Address
+- Cipher.PubKey
+- Cipher.SecKey
+- Cipher.AddressFromPubKey
+- Cipher.BitcoinAddressFromPubKey
+- Cipher.BitcoinWalletImportFormatFromSeckey
+- Cipher.SumSHA256
+- Cipher.GenerateDeterministicKeyPairs
+- Cipher.PubKeyFromSecKey
+- Cipher.Sig
+- Cipher.Address
+- Cipher.PubKey
+- Cipher.SecKey
+- Cipher.SigFromHex
+- Cipher.DecodeBase58Address
+- Cipher.PubKeyFromHex
+- Cipher.SecKeyFromHex
+- Cipher.MustSHA256FromHex
+- Cipher.MustDecodeBase58Address
+- Cipher.MustSecKeyFromHex
+- Cipher.MustDecodeBase58Address
 
 ## Wallet
 - wallet.Load
@@ -179,9 +179,9 @@ MustDecodeBase58Address
 - wallet.NewBalance
 
 ## CLI
-DaemonArgs
-ClientArgs
-DevArgs
+- CLI.DaemonArgs
+- CLI.ClientArgs
+- CLI.DevArgs
 
 Command
 StringFlag
